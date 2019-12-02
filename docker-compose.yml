@@ -1,10 +1,23 @@
 version: '3.3'
 
 services:
+  db:
+    image: postgres
+    volumes:
+      - qiradb:/var/lib/postgresql/data
+
   web:
-    build: ./Qira-Django
+    build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/qira-face
+      - .:/code
     ports:
-      - "8000:8000"
+      - "80:8000"
+    env_file:
+      - qira.env
+    depends_on:
+      - db
+
+volumes:
+  qiradb:
+    external: true
