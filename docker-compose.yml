@@ -2,12 +2,14 @@ version: '3.3'
 
 services:
   db:
+    container_name: "db"
     image: postgres
     volumes:
       - qiradb:/var/lib/postgresql/data
 
   web:
-    image: bak3dchips/qira-django:latest
+    container_name: "web"
+    image: bak3dchips/qira-django
     volumes:
       - qiradata:/qira-django
     ports:
@@ -16,6 +18,12 @@ services:
       - qira.env
     depends_on:
       - db
+  
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: "watchtower"
+    command: ["watchtower", "web","db"]
+    restart: unless-stopped
 
 volumes:
   qiradb:
