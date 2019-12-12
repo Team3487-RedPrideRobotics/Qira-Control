@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 
 services:
   db:
@@ -22,7 +22,7 @@ services:
   watchtower:
     image: containrrr/watchtower:latest
     container_name: "watchtower"
-    command: ["watchtower", "web","db"]
+    command: ["watchtower","-v","/var/run/docker.sock:/var/run/docker.sock" "web","db"]
     restart: unless-stopped
 
 volumes:
