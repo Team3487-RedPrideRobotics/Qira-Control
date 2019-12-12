@@ -21,7 +21,7 @@ services:
 
   rds:
     container_name: "remote-ds"
-    image: bak3dchips/remote-ds
+    image: bak3dchips/remote-ds:latest
   
   watchtower:
     image: containrrr/watchtower:latest
