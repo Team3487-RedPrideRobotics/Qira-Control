@@ -26,7 +26,21 @@ services:
   watchtower:
     image: containrrr/watchtower:latest
     container_name: "watchtower"
-    command: ["watchtower","web","db"]
+    command: ["watchtower","web","db",
+    "-e", "WATCHTOWER_NOTIFICATIONS=email",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_FROM=${FROM}",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_TO=${TO}",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER=${SERVER}",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=${FROM}",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=${PASS}",
+    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_DELAY=2"    
+    ]
+    environment:
+      - FROM
+      - TO
+      - SERVER
+      - USER
+      - PASS
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
     restart: unless-stopped
