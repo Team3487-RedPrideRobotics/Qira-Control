@@ -18,6 +18,10 @@ services:
       - qira.env
     depends_on:
       - db
+
+  rds:
+    container_name: "remote-ds"
+    image: bak3dchips/remote-ds
   
   watchtower:
     image: containrrr/watchtower:latest
