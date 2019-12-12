@@ -27,14 +27,8 @@ services:
     image: containrrr/watchtower:latest
     container_name: "watchtower"
     command: ["watchtower","web","db",
-    "-e", "WATCHTOWER_NOTIFICATIONS=email",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_FROM=${FROM}",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_TO=${TO}",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER=${SERVER}",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=${FROM}",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=${PASS}",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_DELAY=2",
-    "-e", "WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT=587"   
+    "-e", "WATCHTOWER_NOTIFICATIONS=slack",
+    "-e", "WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL='https://hooks.slack.com/services/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'" 
     ]
     environment:
       - FROM
