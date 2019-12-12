@@ -9,7 +9,7 @@ services:
 
   web:
     container_name: "web"
-    image: bak3dchips/qira-django
+    image: bak3dchips/qira-django:latest
     volumes:
       - qiradata:/qira-django
     ports:
