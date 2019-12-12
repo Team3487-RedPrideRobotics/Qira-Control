@@ -2,13 +2,13 @@ version: "3.3"
 
 services:
   db:
-    container_name: "db"
+    #container_name: "db"
     image: postgres
     volumes:
       - qiradb:/var/lib/postgresql/data
 
   web:
-    container_name: "web"
+    #container_name: "web"
     image: bak3dchips/qira-django:latest
     volumes:
       - qiradata:/qira-django
@@ -20,21 +20,13 @@ services:
       - db
 
   rds:
-    container_name: "remote-ds"
+    #container_name: "remote-ds"
     image: bak3dchips/remote-ds:latest
   
   watchtower:
-    image: containrrr/watchtower:latest
-    container_name: "watchtower"
-    command: ["watchtower","web","db",
-    "-e", "WATCHTOWER_NOTIFICATIONS=slack",
-    "-e", "WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL='https://hooks.slack.com/services/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'" 
-    ]
-    environment:
-      - FROM
-      - TO
-      - SERVER
-      - PASS
+    image: v2tec/watchtower
+    #container_name: "watchtower"
+    command: "-e WATCHTOWER_NOTIFICATIONS=slack -e WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL='https://hooks.slack.com/services/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'"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
     restart: unless-stopped
