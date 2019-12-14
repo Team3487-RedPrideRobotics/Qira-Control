@@ -24,7 +24,7 @@ services:
   watchtower:
     image: v2tec/watchtower:armhf-latest
     #container_name: "watchtower"
-    command: "--notifications slack --notification-slack-hook-url 'https://hooks.slack.com/services/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'"
+    command: "--notifications slack --notification-slack-hook-url https://hooks.slack.com/services/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"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
     restart: unless-stopped
