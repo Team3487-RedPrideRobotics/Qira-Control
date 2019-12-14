@@ -22,7 +22,7 @@ services:
     image: bak3dchips/remote-ds:latest
   
   watchtower:
-    image: v2tec/watchtower
+    image: v2tec/watchtower:armhf-latest
     #container_name: "watchtower"
     command: "-e WATCHTOWER_NOTIFICATIONS=slack -e WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL='https://hooks.slack.com/services/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'"
     volumes:
