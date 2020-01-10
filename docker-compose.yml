@@ -20,6 +20,9 @@ services:
   rds:
     #container_name: "remote-ds"
     image: bak3dchips/remote-ds:latest
+    ports:
+      - "1150:1150"
+      - "1110:1110"
   
   watchtower:
     image: v2tec/watchtower
