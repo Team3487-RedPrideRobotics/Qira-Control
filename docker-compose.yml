@@ -9,13 +9,15 @@ services:
 
   web:
     #container_name: "web"
-    image: bak3dchips/qira-django:latest
+    image: bak3dchips/qira-django:0.0.30-amd64
     ports:
       - "80:8000"
     env_file:
       - qira.env
     depends_on:
       - db
+    volumes:
+      - .:/qira-django
 
   rds:
     #container_name: "remote-ds"
@@ -25,7 +27,7 @@ services:
       - "1110:1110"
   
   watchtower:
-    image: containrrr/watchtower:armhf-latest
+    image: containrrr/watchtower
     #container_name: "watchtower"
     command: "--notifications slack --notification-slack-hook-url 'https://hooks.slack.com/services/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'"
     volumes:

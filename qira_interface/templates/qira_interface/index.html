@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+        <title>Qira Face</title>
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+        <style>
+            @font-face {
+                font-family: Library3AM;
+                src: url('{% static "qira_interface/LIBRARY3AM.otf" %}');
+
+            }
+            .hero {
+                text-align:center;
+                margin-top: -1%;
+            }
+            h1.hero {
+                font-family: Library3AM;
+                font-size: 20vw;
+                letter-spacing: 1vw;
+                outline:black, thin;            
+            }
+            #subheader {
+                margin-top: -16%;
+                font-family:Arial;
+                font-size:1.5vw;
+            }
+            #subheader p {
+                margin-bottom: 2%;
+            }
+        </style>
+        <link rel="stylesheet" href="{% static "qira_interface/rgb.css" %}">
+        <script>
+            var itemsToSay = [];
+        </script>
+    </head>
+    <h1 class="hero">QIRA</h1>
+    <audio autoplay id="sound">
+        <source src="{% static "qira_interface/playstation.mp3" %}" alt="Startup Sound">
+    </audio>
+    <div id="subheader" class="hero">
+        <p>Quaker Imagineering Robotic Assistant</p>
+        <p class="hero">V. {{ qv }}</p>
+    </div>
+    <div id="Updates" class="hero">
+        <p id="updates">{{ visited }}</p>
+    </div>
+    <script>
+        $('#sound')[0].onended = function(){
+            location.reload();
+        };
+        function getCurrentUpdates() {
+                $.getJSON("https://team3487-redpriderobotics.github.io/Qira-Django/noti.html")
+                .done(function(data) {
+                    console.log(data)
+                    itemsToSay = data.itemsToSay;
+                })
+                .fail(function(error) {
+                    if(error.status == 404) {
+                        itemsToSay = ['Notification File Does Not Exist']
+                    } else {
+                        itemsToSay = ['Error Pulling Notifications File']
+                    }
+                });
+            }
+        $(document).ready(getCurrentUpdates());
+    </script>
+</html>
+

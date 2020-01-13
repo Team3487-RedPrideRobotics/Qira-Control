@@ -1,0 +1,28 @@
+h1.hero {
+    animation: colorchange 17s; /* animation-name followed by duration in seconds*/
+       /* you could also use milliseconds (ms) or something like 2.5s */
+    -webkit-animation: colorchange 17s; /* Chrome and Safari */
+    animation-iteration-count: infinite;
+}
+
+@keyframes colorchange
+{
+    0%   {color: red;}
+    16% {color: rgb(255,255,0)}
+    33%  {color: rgb(0,255,0);}
+    50% {color: rgb(0,255,255)}
+    66%  {color: blue;}
+    79% {color: rgb(255,0,255)}
+    100% {color: red;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+    0%   {color: red;}
+    16% {color: rgb(255,255,0)}
+    33%  {color: rgb(0,255,0);}
+    50% {color: rgb(0,255,255)}
+    66%  {color: blue;}
+    79% {color: rgb(255,0,255)}
+    100% {color: red;}
+}
