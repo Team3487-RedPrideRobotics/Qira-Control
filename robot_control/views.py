@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.conf import settings
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Congrats! You are now viewing QIRA 0.0.1", content_type='text/plain')
+
+    context = {
+        'qv': settings.VERSION
+    }
+
+    return render(request, 'robot_control/index.html', context)
