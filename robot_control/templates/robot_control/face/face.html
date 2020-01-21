@@ -3,16 +3,54 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'robot_control/face/animate.min.css' %}"></script>
+        <script src="{% static 'robot_control/face/jquery.lettering-0.6.1.min.js' %}"></script>
+        <script src="{% static 'robot_control/face/jquery.textillate.js' %}"></script>
         <title>Loading</title>
     </head>
     <body>
         <style>
-            .hero {
+            #hero {
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
+                text-align: center;
             }
         </style>
-        <img class="hero" src="{% static "robot_control/face/wip.gif" %}">
+        <div id="hero">
+            <img src="{% static 'robot_control/face/wip.gif' %}">
+            <p class="tlt">Test</p>
+        </div>
+        <script>
+            var thingsToSay = [];
+            var wordPosition = 0;
+            var continueAnim = true;
+            $(function () {
+               getWords();
+            })
+
+            function getWords() {
+                $.getJSON('https://team3487-redpriderobotics.github.io/Qira-Django/noti.html', function(data){
+                    thingsToSay = data.itemsToSay;
+                    getWord();
+                });
+            }
+
+            function getWord() {
+                //https://github.com/jschr/textillate
+                if(wordPosition+1 > thingsToSay.length) {
+                    wordPosition = 0;
+                }
+                $('.tlt').html(thingsToSay[wordPosition]);
+                wordPosition++;
+                $('.tlt').textillate({
+                    callback: function() {
+                        getWords();
+                    }
+                });
+            }
+
+        </script>
     </body>
 </html>
