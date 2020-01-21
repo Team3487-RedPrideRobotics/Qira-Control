@@ -20,6 +20,5 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('robot_control.urls')),
-    path('qira-face', include('qira_interface.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

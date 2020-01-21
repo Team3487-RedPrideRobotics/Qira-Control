@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'robot_control.apps.RobotControlConfig',
-    'qira_interface.apps.QiraInterfaceConfig'
 ]
 
 MIDDLEWARE = [
