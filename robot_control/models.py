@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
+import secrets
 
 # Create your models here.
 class CodeProjects(models.Model):
@@ -8,7 +9,7 @@ class CodeProjects(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     #Randomly generated string
-    document = models.TextField(primary_key=True)
+    document = models.TextField(primary_key=True, default=secrets.token_bytes())
     author = models.ForeignKey('Member',on_delete=models.CASCADE)
     
 class Member(models.Model):
