@@ -1,56 +1,64 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html >
     <head>
         <meta charset="UTF-8">
         <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'robot_control/face/animate.min.css' %}"></script>
-        <script src="{% static 'robot_control/face/jquery.lettering-0.6.1.min.js' %}"></script>
-        <script src="{% static 'robot_control/face/jquery.textillate.js' %}"></script>
+        <script src="https://unpkg.com/konva@4.0.0/konva.min.js"></script>
         <title>Loading</title>
     </head>
     <body>
-        <style>
-            #hero {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-            }
-        </style>
-        <div id="hero">
-            <img src="{% static 'robot_control/face/wip.gif' %}">
-            <p class="tlt">Test</p>
-        </div>
+        <div id="container" style="background-color: chartreuse;"></div>
         <script>
-            var thingsToSay = [];
-            var wordPosition = 0;
-            var continueAnim = true;
-            $(function () {
-               getWords();
-            })
+            $("html").css("overflow", "hidden");
+            $("body").css("padding",0).css("margin",0).css("overflow", "hidden").css("overflow", "auto");
+            // first we need to create a stage
+            var stage = new Konva.Stage({
+                container: 'container',   // id of container <div>
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
 
-            function getWords() {
-                $.getJSON('https://team3487-redpriderobotics.github.io/Qira-Django/noti.html', function(data){
-                    thingsToSay = data.itemsToSay;
-                    getWord();
-                });
-            }
+            // then create layer
+            var layer = new Konva.Layer();
 
-            function getWord() {
-                //https://github.com/jschr/textillate
-                if(wordPosition+1 > thingsToSay.length) {
-                    wordPosition = 0;
-                }
-                $('.tlt').html(thingsToSay[wordPosition]);
-                wordPosition++;
-                $('.tlt').textillate({
-                    callback: function() {
-                        getWords();
-                    }
-                });
-            }
+            // create our shape
+            var circle = new Konva.Star({
+                x: stage.width() / 2,
+                y: stage.height() / 2,
+                radius: 70,
+                fill: 'red',
+                stroke: 'black',
+                numpoints:5,
+                innerRadius: 40,
+        outerRadius: 70,
+                strokeWidth: 4
+            });
 
+            // add the shape to the layer
+            layer.add(circle);
+
+            // add the layer to the stage
+            stage.add(layer);
+
+            // draw the image
+            layer.draw();
+            console.log(stage.width());
+
+            var anim = new Konva.Animation(function(frame) {
+                var time = frame.time,
+                    timeDiff = frame.timeDiff,
+                    frameRate = frame.frameRate;
+                
+                var newX = (1536/3) * Math.sin((frame.time*2*Math.PI)/3000)+(stage.width()/2);
+                var newY = (stage.height()/3) * Math.cos((frame.time*2*Math.PI)/3000)+(stage.height()/2);
+                circle.x(newX);
+                circle.y(newY);
+                circle.rotate(-3000/(Math.PI*360));
+                // update stuff
+            }, layer);
+
+            anim.start();
         </script>
     </body>
-</html>
+</html >
